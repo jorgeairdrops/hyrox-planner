@@ -739,12 +739,6 @@ export default function HyroxPlanner() {
           {showWU && <div style={{padding:"0 14px 14px",fontSize:11,color:t.t2,lineHeight:1.6}}>{wod.warmup}</div>}
         </div>
 
-        <div style={{textAlign:"center",padding:"8px 0 4px"}}>
-          <button onClick={() => setTvMode(true)}
-            style={{fontSize:12,color:t.t2,background:"transparent",border:`1px solid ${t.border}`,borderRadius:20,padding:"6px 18px",cursor:"pointer",fontFamily:"Oswald,sans-serif",letterSpacing:1}}>
-            MODO TV
-          </button>
-        </div>
       </div>
     );
   };
@@ -824,9 +818,15 @@ export default function HyroxPlanner() {
           <div style={{fontFamily:"Oswald,sans-serif",fontSize:18,fontWeight:700,color:t.t1,letterSpacing:2}}>HYROX</div>
           <div style={{fontSize:9,color:t.t3,letterSpacing:1}}>COACH JORGE · MES {selM+1} · SEM {gw}</div>
         </div>
-        <button onClick={toggleDark} style={{background:t.chip,border:`1px solid ${t.border}`,borderRadius:20,padding:"5px 12px",cursor:"pointer",fontSize:11,color:t.t2}}>
-          {dark ? "☀ Claro" : "☾ Oscuro"}
-        </button>
+        <div style={{display:"flex",gap:6}}>
+          <button onClick={() => setTvMode(true)}
+            style={{background:t.chip,border:`1px solid ${t.border}`,borderRadius:20,padding:"5px 12px",cursor:"pointer",fontSize:11,color:t.t2}}>
+            TV
+          </button>
+          <button onClick={toggleDark} style={{background:t.chip,border:`1px solid ${t.border}`,borderRadius:20,padding:"5px 12px",cursor:"pointer",fontSize:11,color:t.t2}}>
+            {dark ? "☀" : "☾"}
+          </button>
+        </div>
       </div>
 
       {/* Content */}
