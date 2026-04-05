@@ -414,8 +414,9 @@ export default function HyroxPlanner() {
   const [expDay, setExpDay]   = useState(null);
   const [noteOpen, setNoteOpen] = useState(false);
   const [showWU, setShowWU]   = useState(false);
+  const [tvMode, setTvMode]   = useState(false);
 
-  const isTv = typeof window !== "undefined" && new URLSearchParams(window.location.search).get("tv") === "true";
+  const isTv = tvMode || (typeof window !== "undefined" && new URLSearchParams(window.location.search).get("tv") === "true");
   const t  = T(dark);
   const gw = selM * 4 + selW + 1;
   const note = WEEK_NOTES[`M${selM + 1}S${selW + 1}`];
@@ -455,14 +456,22 @@ export default function HyroxPlanner() {
       ? getWod(todayM, todayWm, todayD) : null;
     const tvDay = todayD !== undefined ? DAYS[todayD] : null;
     const tvDt  = tvDay ? DAY_TYPES[tvDay.type] : null;
+    const exitBtn = (
+      <button onClick={() => setTvMode(false)}
+        style={{position:"fixed",top:16,right:16,background:"#222",border:"1px solid #444",borderRadius:8,color:"#aaa",fontSize:13,padding:"6px 14px",cursor:"pointer",zIndex:100}}>
+        ✕ Salir
+      </button>
+    );
     if (!tvWod || !tvDay) return (
       <div style={{background:"#111",color:"#fff",height:"100vh",display:"flex",alignItems:"center",justifyContent:"center",flexDirection:"column",gap:12}}>
+        {exitBtn}
         <div style={{fontSize:30,fontWeight:700}}>{_jsDay === 0 ? "Dia de descanso" : "No hay WOD hoy"}</div>
         <div style={{color:"#555",fontSize:15}}>{_diff < 0 ? "El programa empieza el Lun 6 Abr" : "Proximamente"}</div>
       </div>
     );
     return (
       <div style={{background:"#0A0A0A",color:"#fff",minHeight:"100vh",padding:"32px 48px",fontFamily:"system-ui,sans-serif"}}>
+        {exitBtn}
         <div style={{color:tvDt.color,fontSize:12,fontWeight:700,letterSpacing:4,marginBottom:4}}>{tvDt.label} · {tvDay.day} · SEMANA {todayPW+1}</div>
         <div style={{fontSize:30,fontWeight:700,marginBottom:2}}>{tvWod.title}</div>
         <div style={{color:"#555",fontSize:15,marginBottom:28}}>{tvWod.format}</div>
@@ -731,10 +740,10 @@ export default function HyroxPlanner() {
         </div>
 
         <div style={{textAlign:"center",padding:"8px 0 4px"}}>
-          <a href="?tv=true" target="_blank" rel="noreferrer"
-            style={{fontSize:11,color:t.t3,textDecoration:"none",border:`1px solid ${t.border}`,borderRadius:20,padding:"5px 16px",display:"inline-block"}}>
-            [TV] Ver en pantalla grande
-          </a>
+          <button onClick={() => setTvMode(true)}
+            style={{fontSize:12,color:t.t2,background:"transparent",border:`1px solid ${t.border}`,borderRadius:20,padding:"6px 18px",cursor:"pointer",fontFamily:"Oswald,sans-serif",letterSpacing:1}}>
+            MODO TV
+          </button>
         </div>
       </div>
     );
