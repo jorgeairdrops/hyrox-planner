@@ -65,7 +65,7 @@ const WODS = {
      warmup:"5 min: Movilidad articular → 2 rondas: 10 air squats + 10 push-ups + 200m jog ligero",
      stations:[
        {n:1, name:"Sled Push",       rx:"4×25m @ peso moderado",          sc:"3×15m @ peso ligero"},
-       {n:2, name:"Sled Pull",       rx:"4×25m @ peso moderado",          sc:"3×15m @ peso ligero"},
+       {n:2, name:"DB Bent-over Row", rx:"12 reps c/lado (16kg)",             sc:"12 reps c/lado (10kg)"},
        {n:3, name:"DB Front Squat",  rx:"15 reps (2×20kg)",               sc:"15 reps (2×10kg)"},
        {n:4, name:"SkiErg",          rx:"300m ritmo sostenible",           sc:"200m"},
        {n:5, name:"KB Swings",       rx:"25 reps (20kg)",                  sc:"20 reps (12kg)"},
@@ -131,7 +131,7 @@ const WODS = {
      stations:[
        {n:1, name:"Run 800m (juntos)",          rx:"800m juntos",                            sc:"600m"},
        {n:2, name:"Sled Push alternado",         rx:"50m total (25m c/u)",                   sc:"30m total"},
-       {n:3, name:"Sled Pull alternado",         rx:"50m total (25m c/u)",                   sc:"30m total"},
+       {n:3, name:"Run 400m + Lunges",           rx:"400m juntos → 40m lunges split",        sc:"300m → 30m lunges"},
        {n:4, name:"Run 400m + WB ×50",          rx:"400m → 50 WB split pareja",             sc:"300m → 30 WB"},
        {n:5, name:"SkiErg 500m + Farmer 100m",  rx:"500m ski split → 100m carry alt",       sc:"300m ski → 60m carry"},
        {n:6, name:"Run 400m + Row 500m + BBJ",  rx:"400m → 500m row split → 50m BBJ split", sc:"300m → 300m → 30m"},
@@ -148,7 +148,7 @@ const WODS = {
      warmup:"5 min: Movilidad articular → 2 rondas: 10 air squats + 10 KB DL + 200m jog",
      stations:[
        {n:1, name:"Sled Push",         rx:"4×25m @ mod (más velocidad que S1)",   sc:"3×20m @ ligero"},
-       {n:2, name:"Sled Pull",         rx:"4×25m @ mod",                           sc:"3×20m @ ligero"},
+       {n:2, name:"KB Row",            rx:"12 reps c/lado (20kg)",                        sc:"12 reps c/lado (12kg)"},
        {n:3, name:"Barbell Deadlift",  rx:"10 reps técnicos (60/30kg)",             sc:"10 KB DL (2×16kg)"},
        {n:4, name:"Rower",             rx:"300m ritmo sostenible",                  sc:"220m"},
        {n:5, name:"DB Lunges",         rx:"20 reps totales (2×10kg)",              sc:"16 reps bodyweight"},
@@ -232,7 +232,7 @@ const WODS = {
      warmup:"5 min: Movilidad articular → 2 rondas: 10 air squats + 10 KB swings + 200m jog",
      stations:[
        {n:1, name:"Sled Push",       rx:"5×25m @ mod (pico de volumen Mes 1)", sc:"4×20m @ ligero"},
-       {n:2, name:"Sled Pull",       rx:"5×25m @ mod",                          sc:"4×20m @ ligero"},
+       {n:2, name:"Barbell Row",     rx:"10 reps (50/25kg)",                           sc:"10 KB Row c/lado (16kg)"},
        {n:3, name:"KB Front Squat",  rx:"15 reps (2×16kg)",                     sc:"15 reps (2×10kg)"},
        {n:4, name:"SkiErg",          rx:"300m (<2:00/500m)",                     sc:"220m"},
        {n:5, name:"KB Swings",       rx:"28 reps (20kg)",                        sc:"22 reps (12kg)"},
@@ -298,7 +298,7 @@ const WODS = {
      stations:[
        {n:1, name:"Run 800m (juntos)",         rx:"800m race pace",                         sc:"600m"},
        {n:2, name:"Sled Push alternado",        rx:"50m total (25m c/u)",                   sc:"30m total"},
-       {n:3, name:"Sled Pull alternado",        rx:"50m total (25m c/u)",                   sc:"30m total"},
+       {n:3, name:"Run 400m + BBJ",             rx:"400m race pace → 30m BBJ split",       sc:"300m → 20m BBJ"},
        {n:4, name:"Run 400m + WB ×50",         rx:"400m → 50 WB split pareja",             sc:"300m → 30 WB"},
        {n:5, name:"SkiErg 500m + Farmer 100m", rx:"500m ski split → 100m carry alt",       sc:"300m → 60m carry"},
        {n:6, name:"Run 400m + Row 500m + BBJ", rx:"400m → 500m row split → 50m BBJ split", sc:"300m → 300m → 30m"},
@@ -315,7 +315,7 @@ const WODS = {
      warmup:"5 min: Movilidad articular suave → 1 ronda: 10 air squats + 10 KB swings ligeros",
      stations:[
        {n:1, name:"Sled Push",       rx:"5×25m @ mod (mismo peso que S3)",   sc:"4×20m @ ligero"},
-       {n:2, name:"Sled Pull",       rx:"5×25m @ mod",                        sc:"4×20m @ ligero"},
+       {n:2, name:"Barbell Row",     rx:"10 reps (50/25kg)",                         sc:"10 KB Row c/lado (16kg)"},
        {n:3, name:"KB Front Squat",  rx:"15 reps (2×16kg)",                   sc:"15 reps (2×10kg)"},
        {n:4, name:"SkiErg",          rx:"300m (<2:00/500m)",                   sc:"220m"},
        {n:5, name:"KB Swings",       rx:"28 reps (20kg)",                      sc:"22 reps (12kg)"},
@@ -414,10 +414,6 @@ export default function HyroxPlanner() {
   const [expDay, setExpDay]   = useState(null);
   const [noteOpen, setNoteOpen] = useState(false);
   const [showWU, setShowWU]   = useState(false);
-  const [activeWod, setActiveWod] = useState(() => {
-    try { return JSON.parse(localStorage.getItem("hx-active") || '{"m":0,"w":0,"d":3}'); }
-    catch { return {m:0,w:0,d:3}; }
-  });
 
   const isTv = typeof window !== "undefined" && new URLSearchParams(window.location.search).get("tv") === "true";
   const t  = T(dark);
@@ -432,11 +428,17 @@ export default function HyroxPlanner() {
 
   const getWod = (m, w, d) => WODS["w" + (m * 4 + w + 1)]?.[d];
 
-  const setActive = (m, w, d) => {
-    const v = {m, w, d};
-    setActiveWod(v);
-    try { localStorage.setItem("hx-active", JSON.stringify(v)); } catch {}
-  };
+  // Auto-detect today WOD (program starts 2026-04-06)
+  const PROG_START = new Date("2026-04-06");
+  const _today = new Date(); _today.setHours(0,0,0,0);
+  const _diff   = Math.floor((_today - PROG_START) / 86400000);
+  const _jsDay  = _today.getDay();
+  const _DMAP   = {1:0,2:1,3:2,4:3,5:4,6:5};
+  const todayD  = _DMAP[_jsDay];
+  const todayPW = Math.floor(_diff / 7);
+  const todayM  = Math.floor(todayPW / 4);
+  const todayWm = todayPW % 4;
+
 
   const card = {
     background: t.surface,
@@ -449,25 +451,26 @@ export default function HyroxPlanner() {
 
   // ── TV MODE ────────────────────────────────────────────────────────────────
   if (isTv) {
-    const wod = getWod(activeWod.m, activeWod.w, activeWod.d);
-    const day = DAYS[activeWod.d];
-    const dt  = DAY_TYPES[day.type];
-    if (!wod) return (
+    const tvWod = (_diff >= 0 && _jsDay !== 0 && todayPW <= 15 && todayD !== undefined)
+      ? getWod(todayM, todayWm, todayD) : null;
+    const tvDay = todayD !== undefined ? DAYS[todayD] : null;
+    const tvDt  = tvDay ? DAY_TYPES[tvDay.type] : null;
+    if (!tvWod || !tvDay) return (
       <div style={{background:"#111",color:"#fff",height:"100vh",display:"flex",alignItems:"center",justifyContent:"center",flexDirection:"column",gap:12}}>
-        <div style={{fontSize:30,fontWeight:700}}>No hay WOD activo</div>
-        <div style={{color:"#555",fontSize:15}}>Selecciona un WOD desde la app del coach</div>
+        <div style={{fontSize:30,fontWeight:700}}>{_jsDay === 0 ? "Dia de descanso" : "No hay WOD hoy"}</div>
+        <div style={{color:"#555",fontSize:15}}>{_diff < 0 ? "El programa empieza el Lun 6 Abr" : "Proximamente"}</div>
       </div>
     );
     return (
       <div style={{background:"#0A0A0A",color:"#fff",minHeight:"100vh",padding:"32px 48px",fontFamily:"system-ui,sans-serif"}}>
-        <div style={{color:dt.color,fontSize:12,fontWeight:700,letterSpacing:4,marginBottom:4}}>{dt.label} · {day.day} · SEMANA {activeWod.m*4+activeWod.w+1}</div>
-        <div style={{fontSize:30,fontWeight:700,marginBottom:2}}>{wod.title}</div>
-        <div style={{color:"#555",fontSize:15,marginBottom:28}}>{wod.format}</div>
-        <div style={{display:"grid",gridTemplateColumns:wod.stations.length > 4 ? "1fr 1fr" : "1fr",gap:"14px 60px"}}>
-          {wod.stations.map(s => (
-            <div key={s.n} style={{borderLeft:`4px solid ${dt.color}`,paddingLeft:18}}>
+        <div style={{color:tvDt.color,fontSize:12,fontWeight:700,letterSpacing:4,marginBottom:4}}>{tvDt.label} · {tvDay.day} · SEMANA {todayPW+1}</div>
+        <div style={{fontSize:30,fontWeight:700,marginBottom:2}}>{tvWod.title}</div>
+        <div style={{color:"#555",fontSize:15,marginBottom:28}}>{tvWod.format}</div>
+        <div style={{display:"grid",gridTemplateColumns:tvWod.stations.length > 4 ? "1fr 1fr" : "1fr",gap:"14px 60px"}}>
+          {tvWod.stations.map(s => (
+            <div key={s.n} style={{borderLeft:`4px solid ${tvDt.color}`,paddingLeft:18}}>
               <div style={{display:"flex",alignItems:"baseline",gap:10,marginBottom:4}}>
-                <span style={{color:dt.color,fontSize:38,fontWeight:700,lineHeight:1}}>{s.n}</span>
+                <span style={{color:tvDt.color,fontSize:38,fontWeight:700,lineHeight:1}}>{s.n}</span>
                 <span style={{fontSize:22,fontWeight:600}}>{s.name}</span>
               </div>
               <div style={{fontSize:17,marginBottom:3}}><b>RX</b> {s.rx}</div>
@@ -477,7 +480,7 @@ export default function HyroxPlanner() {
         </div>
         <div style={{marginTop:28,borderTop:"1px solid #222",paddingTop:18}}>
           <div style={{color:"#444",fontSize:10,fontWeight:700,letterSpacing:3,marginBottom:4}}>WARM-UP</div>
-          <div style={{fontSize:15,color:"#aaa"}}>{wod.warmup}</div>
+          <div style={{fontSize:15,color:"#aaa"}}>{tvWod.warmup}</div>
         </div>
       </div>
     );
@@ -581,49 +584,51 @@ export default function HyroxPlanner() {
             <div style={{fontSize:14,color:t.t2,fontWeight:600,marginBottom:4}}>Próximamente</div>
             <div style={{fontSize:11,color:t.t3}}>Los WODs del {MONTHS[selM].name} estarán disponibles pronto.</div>
           </div>
-        ) : (
-          DAYS.map((d, di) => {
-            const wod    = getWod(selM, selW, di);
-            const dt     = DAY_TYPES[d.type];
-            const isExp  = expDay === di;
-            const isAct  = activeWod.m === selM && activeWod.w === selW && activeWod.d === di;
-            return (
-              <div key={di} style={card}>
-                {/* Card header */}
-                <button onClick={() => setExpDay(isExp ? null : di)}
-                  style={{width:"100%",background:"transparent",border:"none",padding:0,cursor:"pointer",display:"block"}}>
-                  <div style={{display:"flex"}}>
-                    <div style={{width:3,background:dt.color,flexShrink:0,borderRadius:"10px 0 0 10px"}}/>
-                    <div style={{flex:1,padding:"10px 14px"}}>
-                      <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
-                        <div style={{display:"flex",alignItems:"center",gap:8}}>
-                          <span style={{fontFamily:"Oswald,sans-serif",fontSize:15,fontWeight:700,color:dt.color}}>{d.day}</span>
-                          <span style={{fontSize:10,color:t.t2}}>{dt.label}</span>
-                          {isAct && <span style={{fontSize:8,fontWeight:700,background:dt.color,color:"#fff",padding:"1px 6px",borderRadius:3}}>HOY</span>}
-                        </div>
-                        <span style={{color:t.t3,fontSize:11}}>{isExp ? "▲" : "▼"}</span>
-                      </div>
-                      {wod && !isExp && (
-                        <div style={{display:"flex",gap:5,marginTop:5,flexWrap:"wrap"}}>
-                          {wod.stations.slice(0,3).map(s => (
-                            <span key={s.n} style={{fontSize:9,color:t.t2,background:t.chip,padding:"1px 6px",borderRadius:3}}>{s.name}</span>
-                          ))}
-                          {wod.stations.length > 3 && <span style={{fontSize:9,color:t.t3}}>+{wod.stations.length-3}</span>}
-                        </div>
-                      )}
-                    </div>
+        ) : (<>
+          {/* Grid 2×3 */}
+          <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8,marginBottom:10}}>
+            {DAYS.map((d, di) => {
+              const wod     = getWod(selM, selW, di);
+              const dt      = DAY_TYPES[d.type];
+              const isExp   = expDay === di;
+              const isToday = _diff >= 0 && todayM === selM && todayWm === selW && todayD === di;
+              return (
+                <div key={di} onClick={() => setExpDay(isExp ? null : di)}
+                  style={{background:t.surface,borderRadius:10,borderLeft:`3px solid ${dt.color}`,
+                          boxShadow:isExp?"none":t.shadow,cursor:"pointer",padding:"10px 12px",
+                          border:`1px solid ${isExp?dt.color:t.border}`,outline:"none"}}>
+                  <div style={{fontSize:8,color:dt.color,fontWeight:700,letterSpacing:1.5,marginBottom:2}}>{dt.label.split(" ")[0]}</div>
+                  <div style={{display:"flex",alignItems:"center",gap:5,marginBottom:3}}>
+                    <span style={{fontFamily:"Oswald,sans-serif",fontSize:17,fontWeight:700,color:t.t1}}>{d.day}</span>
+                    {isToday && <span style={{fontSize:7,background:dt.color,color:"#fff",padding:"1px 5px",borderRadius:3,fontWeight:700}}>HOY</span>}
                   </div>
-                </button>
+                  {wod
+                    ? <div style={{fontSize:9,color:t.t3,lineHeight:1.4}}>{wod.stations.slice(0,2).map(s=>s.name).join(" · ")}</div>
+                    : <div style={{fontSize:9,color:t.t3}}>Próximamente</div>}
+                </div>
+              );
+            })}
+          </div>
 
-                {/* Expanded WOD */}
-                {isExp && wod && (
-                  <div style={{padding:"0 14px 14px",paddingLeft:17}}>
-                    <div style={{height:1,background:t.border,marginBottom:10}}/>
-                    <div style={{fontSize:10,color:t.t3,marginBottom:10}}>{wod.format}</div>
-
+          {/* Expanded detail below grid */}
+          {expDay !== null && (() => {
+            const wod = getWod(selM, selW, expDay);
+            const d   = DAYS[expDay];
+            const dt  = DAY_TYPES[d.type];
+            return (
+              <div style={card}>
+                <div style={{padding:"12px 14px",borderBottom:`1px solid ${t.border}`,display:"flex",justifyContent:"space-between",alignItems:"flex-start"}}>
+                  <div>
+                    <div style={{fontFamily:"Oswald,sans-serif",fontSize:8,color:dt.color,letterSpacing:2,marginBottom:2}}>{dt.label}</div>
+                    <div style={{fontFamily:"Oswald,sans-serif",fontSize:18,fontWeight:700,color:t.t1}}>{d.day} · SEM {gw}</div>
+                    {wod && <div style={{fontSize:10,color:t.t2,marginTop:2}}>{wod.format}</div>}
+                  </div>
+                  <button onClick={()=>setExpDay(null)} style={{background:"transparent",border:"none",color:t.t3,cursor:"pointer",fontSize:16,padding:0,lineHeight:1}}>✕</button>
+                </div>
+                {wod ? (
+                  <div style={{padding:"12px 14px 14px"}}>
                     <div style={{fontSize:9,color:t.t3,fontWeight:700,letterSpacing:1.5,marginBottom:5}}>── WARM-UP ──</div>
                     <div style={{fontSize:11,color:t.t2,marginBottom:12,lineHeight:1.5}}>{wod.warmup}</div>
-
                     <div style={{fontSize:9,color:t.t3,fontWeight:700,letterSpacing:1.5,marginBottom:8}}>── ESTACIONES ──</div>
                     {wod.stations.map(s => (
                       <div key={s.n} style={{display:"flex",gap:10,marginBottom:9,alignItems:"flex-start"}}>
@@ -635,38 +640,54 @@ export default function HyroxPlanner() {
                         </div>
                       </div>
                     ))}
-
                     <div style={{fontSize:9,color:t.t3,fontWeight:700,letterSpacing:1.5,marginBottom:5,marginTop:4}}>── COOL-DOWN ──</div>
                     <div style={{fontSize:11,color:t.t2,marginBottom:12,lineHeight:1.5}}>{wod.cooldown}</div>
-
-                    <div style={{background:`${dt.color}10`,border:`1px solid ${dt.color}25`,borderRadius:7,padding:"8px 10px",marginBottom:10}}>
+                    <div style={{background:`${dt.color}10`,border:`1px solid ${dt.color}25`,borderRadius:7,padding:"8px 10px"}}>
                       <div style={{fontSize:9,color:dt.color,fontWeight:700,letterSpacing:1,marginBottom:3}}>NOTAS COACH</div>
                       <div style={{fontSize:11,color:t.t1,lineHeight:1.5}}>{wod.notes}</div>
                     </div>
-
-                    <button onClick={() => setActive(selM, selW, di)}
-                      style={{width:"100%",padding:"9px 0",background:isAct?dt.color:`${dt.color}18`,border:`1px solid ${dt.color}`,borderRadius:7,color:isAct?"#fff":dt.color,fontSize:11,fontWeight:700,fontFamily:"Oswald,sans-serif",letterSpacing:1,cursor:"pointer"}}>
-                      {isAct ? "✓ WOD ACTIVO" : "FIJAR COMO WOD HOY"}
-                    </button>
                   </div>
+                ) : (
+                  <div style={{padding:"20px 14px",textAlign:"center",color:t.t3,fontSize:12}}>WOD próximamente</div>
                 )}
               </div>
             );
-          })
-        )}
+          })()}
+        </>)}
       </div>
     );
   };
 
   const renderWod = () => {
-    const wod = getWod(activeWod.m, activeWod.w, activeWod.d);
-    const day = DAYS[activeWod.d];
+    if (_diff < 0) return (
+      <div style={{padding:40,textAlign:"center"}}>
+        <div style={{fontSize:36,marginBottom:12}}>&#128197;</div>
+        <div style={{fontSize:15,color:t.t1,fontWeight:600,marginBottom:6}}>El programa empieza el Lun 6 Abr</div>
+        <div style={{fontSize:11,color:t.t3}}>Vuelve el lunes para ver el WOD del dia.</div>
+      </div>
+    );
+    if (_jsDay === 0) return (
+      <div style={{padding:40,textAlign:"center"}}>
+        <div style={{fontSize:36,marginBottom:12}}>&#128564;</div>
+        <div style={{fontSize:15,color:t.t1,fontWeight:600,marginBottom:6}}>Dia de descanso</div>
+        <div style={{fontSize:11,color:t.t3}}>Hoy es domingo - descansa y preparate para el lunes.</div>
+      </div>
+    );
+    if (todayPW > 15) return (
+      <div style={{padding:40,textAlign:"center"}}>
+        <div style={{fontSize:36,marginBottom:12}}>&#127942;</div>
+        <div style={{fontSize:15,color:t.t1,fontWeight:600,marginBottom:6}}>Programa completado</div>
+        <div style={{fontSize:11,color:t.t3}}>16 semanas completadas. Enhorabuena.</div>
+      </div>
+    );
+    const wod = getWod(todayM, todayWm, todayD);
+    const day = DAYS[todayD];
     const dt  = DAY_TYPES[day.type];
     if (!wod) return (
       <div style={{padding:40,textAlign:"center"}}>
         <div style={{fontSize:36,marginBottom:12}}>🏋️</div>
-        <div style={{fontSize:15,color:t.t2,marginBottom:6}}>No hay WOD activo</div>
-        <div style={{fontSize:11,color:t.t3}}>Ve a Calendario → expande un día → "Fijar como WOD HOY".</div>
+        <div style={{fontSize:15,color:t.t2,marginBottom:6}}>Proximamente</div>
+        <div style={{fontSize:11,color:t.t3}}>Semana {todayPW+1} en desarrollo.</div>
       </div>
     );
     return (
@@ -675,7 +696,7 @@ export default function HyroxPlanner() {
           <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start"}}>
             <div>
               <div style={{fontFamily:"Oswald,sans-serif",fontSize:10,color:dt.color,letterSpacing:2,marginBottom:2}}>{dt.label}</div>
-              <div style={{fontFamily:"Oswald,sans-serif",fontSize:22,fontWeight:700,color:t.t1,letterSpacing:1}}>{day.day} · SEM {activeWod.m*4+activeWod.w+1}</div>
+              <div style={{fontFamily:"Oswald,sans-serif",fontSize:22,fontWeight:700,color:t.t1,letterSpacing:1}}>{day.day} · SEM {todayPW+1}</div>
               <div style={{fontSize:11,color:t.t2,marginTop:4}}>{wod.format}</div>
             </div>
             <span style={{fontSize:28}}>{dt.icon}</span>
@@ -707,6 +728,13 @@ export default function HyroxPlanner() {
             <span style={{color:t.t3}}>{showWU ? "▲" : "▼"}</span>
           </button>
           {showWU && <div style={{padding:"0 14px 14px",fontSize:11,color:t.t2,lineHeight:1.6}}>{wod.warmup}</div>}
+        </div>
+
+        <div style={{textAlign:"center",padding:"8px 0 4px"}}>
+          <a href="?tv=true" target="_blank" rel="noreferrer"
+            style={{fontSize:11,color:t.t3,textDecoration:"none",border:`1px solid ${t.border}`,borderRadius:20,padding:"5px 16px",display:"inline-block"}}>
+            [TV] Ver en pantalla grande
+          </a>
         </div>
       </div>
     );
@@ -776,8 +804,6 @@ export default function HyroxPlanner() {
     return renderInfo();
   };
 
-  const activeDay = DAYS[activeWod.d];
-  const activeDt  = DAY_TYPES[activeDay.type];
 
   return (
     <div style={{fontFamily:"system-ui,'Inter',sans-serif",background:t.bg,color:t.t1,minHeight:"100vh",maxWidth:480,margin:"0 auto",paddingBottom:72}}>
