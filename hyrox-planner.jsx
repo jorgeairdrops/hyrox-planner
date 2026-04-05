@@ -65,7 +65,7 @@ const WODS = {
      warmup:"5 min: Movilidad articular → 2 rondas: 10 air squats + 10 push-ups + 200m jog ligero",
      stations:[
        {n:1, name:"Sled Push",       rx:"4×25m @ peso moderado",          sc:"3×15m @ peso ligero"},
-       {n:2, name:"DB Bent-over Row", rx:"12 reps c/lado (16kg)",             sc:"12 reps c/lado (10kg)"},
+       {n:2, name:"Barbell Row",       rx:"10 reps (50/30kg)",                  sc:"10 KB Row c/lado (16kg)"},
        {n:3, name:"DB Front Squat",  rx:"15 reps (2×20kg)",               sc:"15 reps (2×10kg)"},
        {n:4, name:"SkiErg",          rx:"300m ritmo sostenible",           sc:"200m"},
        {n:5, name:"KB Swings",       rx:"25 reps (20kg)",                  sc:"20 reps (12kg)"},
@@ -90,7 +90,7 @@ const WODS = {
      format:"6 est · Parejas · 2 min · 3 rondas · 2 min desc",
      warmup:"5 min: Jumping jacks → high knees → 5 broad jumps → 5 box jumps progresivos",
      stations:[
-       {n:1, name:"Barbell Deadlift",  rx:"6 reps EXPLOSIVOS (60% 1RM)",      sc:"8 KB deadlift (16-20kg)"},
+       {n:1, name:"DB Clean",          rx:"6 reps EXPLOSIVOS (2×25kg)",     sc:"8 KB Clean (16-20kg)"},
        {n:2, name:"Rower Sprint",      rx:"200m MAX EFFORT",                   sc:"150m esfuerzo alto"},
        {n:3, name:"Box Jumps",         rx:"10 box jumps (60cm)",               sc:"10 step-ups"},
        {n:4, name:"Sled Push Sprint",  rx:"25m sprint (mod-pesado)",            sc:"15m peso ligero"},
@@ -98,7 +98,7 @@ const WODS = {
        {n:6, name:"Broad Jumps",       rx:"6 BJ máximos + sprint 40m",        sc:"5 BJ + sprint 20m"},
      ],
      cooldown:"5 min: Stretching isquiotibiales, flexores de cadera, hombros",
-     notes:"CADA REP EXPLOSIVA. Peso moderado (50-60% 1RM) a máxima velocidad. Competencia entre parejas — ¿quién termina primero?",
+     notes:"CADA REP EXPLOSIVA. DB Clean: extensión completa de cadera al subir, recepcionar bajo. Peso moderado a máxima velocidad. Competencia entre parejas — ¿quién termina primero?",
     },
     {type:"threshold", title:"THRESHOLD — Base 🔥",
      format:"5 est · Flex (2s y 3s) · 2.5 min · 3 rondas · 2 min desc",
@@ -145,11 +145,11 @@ const WODS = {
   w2: [
     {type:"strength", title:"STRENGTH & GRIND — BUILD",
      format:"6 est · Parejas · 2.5 min · 3 rondas · 2 min desc",
-     warmup:"5 min: Movilidad articular → 2 rondas: 10 air squats + 10 KB DL + 200m jog",
+     warmup:"5 min: Movilidad articular → 2 rondas: 10 air squats + 10 KB Clean ligero + 200m jog",
      stations:[
        {n:1, name:"Sled Push",         rx:"4×25m @ mod (más velocidad que S1)",   sc:"3×20m @ ligero"},
        {n:2, name:"KB Row",            rx:"12 reps c/lado (20kg)",                        sc:"12 reps c/lado (12kg)"},
-       {n:3, name:"Barbell Deadlift",  rx:"10 reps técnicos (60/30kg)",             sc:"10 KB DL (2×16kg)"},
+       {n:3, name:"DB Clean",          rx:"10 reps técnicos (2×15kg)",           sc:"10 KB Clean (2×12kg)"},
        {n:4, name:"Rower",             rx:"300m ritmo sostenible",                  sc:"220m"},
        {n:5, name:"DB Lunges",         rx:"20 reps totales (2×10kg)",              sc:"16 reps bodyweight"},
        {n:6, name:"Farmer Carry",      rx:"80m (2×20kg)",                          sc:"55m (2×12kg)"},
@@ -257,7 +257,7 @@ const WODS = {
      format:"6 est · Parejas · 2 min · 3 rondas · 2 min desc",
      warmup:"5 min: Jumping jacks → high knees → 6 broad jumps → 6 box jumps prog.",
      stations:[
-       {n:1, name:"Barbell Deadlift",  rx:"8 reps EXPLOSIVOS (60% 1RM)",   sc:"10 KB DL (2×16kg)"},
+       {n:1, name:"DB Clean",          rx:"8 reps EXPLOSIVOS (2×22kg)",  sc:"10 KB Clean (2×14kg)"},
        {n:2, name:"Rower Sprint",      rx:"200m MAX EFFORT",                sc:"150m esfuerzo alto"},
        {n:3, name:"Box Jumps",         rx:"12 box jumps (60cm) RÁPIDOS",   sc:"10 step-ups rápidos"},
        {n:4, name:"Sled Push Sprint",  rx:"25m sprint (mod-pesado)",         sc:"15m peso ligero"},
@@ -340,7 +340,7 @@ const WODS = {
      format:"6 est · Parejas · 2 min · 2 rondas · 2 min desc · DELOAD",
      warmup:"5 min: Jumping jacks → high knees → 5 broad jumps suaves",
      stations:[
-       {n:1, name:"Barbell Deadlift",  rx:"8 reps EXPLOSIVOS (60% 1RM)",    sc:"10 KB DL (2×16kg)"},
+       {n:1, name:"DB Clean",          rx:"8 reps EXPLOSIVOS (2×22kg)",   sc:"10 KB Clean (2×14kg)"},
        {n:2, name:"Rower Sprint",      rx:"200m MAX EFFORT",                 sc:"150m esfuerzo alto"},
        {n:3, name:"Box Jumps",         rx:"12 box jumps (60cm)",             sc:"10 step-ups"},
        {n:4, name:"Sled Push Sprint",  rx:"25m sprint",                      sc:"15m peso ligero"},
