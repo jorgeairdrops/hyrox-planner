@@ -827,7 +827,9 @@ export default function HyroxPlanner() {
       <div style={{position:"fixed",bottom:0,left:"50%",transform:"translateX(-50%)",width:"100%",maxWidth:480,background:t.surface,borderTop:`1px solid ${t.border}`,display:"flex",zIndex:10}}>
         {NAV.map(n => {
           const isAct = view === n.id;
-          const accentColor = n.id === "wod" ? activeDt.color : MONTHS[selM].color;
+          const accentColor = n.id === "wod"
+            ? (todayD !== undefined ? DAY_TYPES[DAYS[todayD].type].color : "#EF4444")
+            : MONTHS[selM].color;
           return (
             <button key={n.id} onClick={() => setView(n.id)}
               style={{flex:1,padding:"8px 4px 10px",background:isAct?t.chip:"transparent",border:"none",borderTop:`2px solid ${isAct?accentColor:"transparent"}`,color:isAct?t.t1:t.t3,cursor:"pointer",display:"flex",flexDirection:"column",alignItems:"center",gap:2}}>
